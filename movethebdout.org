@@ -1,0 +1,21 @@
+* The Setup
+
+* BD access
+
+** How it was done
+
+** Code smell: with-redefs
+
+** The insight: Haskell and the IO Mondad
+
+** Changing the approach
+
+* Lets usage and abuse
+
+** How it was done
+
+** Code smell: Multiple lets
+
+** The insight: Functional Composition
+
+** Changing the approach
