@@ -1,21 +1,91 @@
 * The Setup
 
+Previous experience with functional languages have been always really small pieces of code. I have used a few (more importantly Clojure, F# and Elixir).
+
+I have had now the pleasure of experiencing working on production code on Clojure. As part of that work, a few things have occurred to me about how I was coding, the application. The most important is the realization that once I was developing the production system I was going back to my try and tested way of doing procedural or OO programming.
+
+Will show two specific examples of what I am thinking was the wrong approach.
+
 * BD access
 
 ** How it was done
 
+#+BEGIN_SRC clojure
+(defn somefunctionC [] 
+  (someDBfunctionAccess))
+
+(defn somefunctionB []
+  (somecalculation (somefunctionC)))
+
+(defn somefunctionA []
+  (somecalculation (somefunctionB)))
+
+#+END_SRC
+
+
+
 ** Code smell: with-redefs
+
+I've started to consider the use of with-redefs as a possible code smell for Clojure. Why I am using with-redefs? How often? 
+
+
+#+BEGIN_SRC clojure
+
+(deftest some-test 
+  (with-redefs [functionA (fn [] (dosomething))
+                functionB (fn [] true)]
+    #test_code))
+
+#+END_SRC
 
 ** The insight: Haskell and the IO Mondad
 
+One of the languages that I looked (very briefly, I must say) was Haskell. Now you all know that Haskell is as pure as it can be. One of the elements to keep it pure is the use of the IO Monad. And there are better people than me to explain it, but one of the points is that every caller to a function that uses the IO Monad is itself an IO Monad function. If you don't want your full system to be IO functions then you have to restrict any IO output to the outside.
+
 ** Changing the approach
+
+So there is a need to change the approach.
+
+#+BEGIN_SRC clojure
+(defn somefunctionC [] 
+  (someDBfunctionAccess))
+
+(let [x (somefunctionC)]
+
+  (defn somefunctionB [x]
+    (somecalculation x))
+
+  (defn somefunctionA [x]
+    (somecalculation (somefunctionB x))))
+
+#+END_SRC
+
 
 * Lets usage and abuse
 
 ** How it was done
 
+#+BEGIN_SRC clojure
+
+(let [a (someFunctionA)
+      b (someFunctionB)
+      c (someFunctionC)
+      d (someFunctionD)]
+
+ (caller a b c d))
+
+#+END_SRC
+
 ** Code smell: Multiple lets
+
+The issue here are those multiple lets.
 
 ** The insight: Functional Composition
 
 ** Changing the approach
+
+
+
+
+* Conclusion
+   
