@@ -22,12 +22,7 @@ Will show two specific examples of what I am thinking was the wrong approach.
 
 #+END_SRC
 
-
-
 ** Code smell: with-redefs
-
-I've started to consider the use of with-redefs as a possible code smell for Clojure. Why I am using with-redefs? How often? 
-
 
 #+BEGIN_SRC clojure
 
@@ -38,6 +33,8 @@ I've started to consider the use of with-redefs as a possible code smell for Clo
 
 #+END_SRC
 
+I've started to consider the use of with-redefs as a possible code smell for Clojure. Why I am using with-redefs? How often? Is to mock access outside the program? Is it to avoid long calculations?
+
 ** The insight: Haskell and the IO Mondad
 
 One of the languages that I looked (very briefly, I must say) was Haskell. Now you all know that Haskell is as pure as it can be. One of the elements to keep it pure is the use of the IO Monad. And there are better people than me to explain it, but one of the points is that every caller to a function that uses the IO Monad is itself an IO Monad function. If you don't want your full system to be IO functions then you have to restrict any IO output to the outside.
@@ -47,6 +44,7 @@ One of the languages that I looked (very briefly, I must say) was Haskell. Now y
 So there is a need to change the approach.
 
 #+BEGIN_SRC clojure
+
 (defn somefunctionC [] 
   (someDBfunctionAccess))
 
@@ -59,7 +57,6 @@ So there is a need to change the approach.
     (somecalculation (somefunctionB x))))
 
 #+END_SRC
-
 
 * Lets usage and abuse
 
@@ -78,14 +75,18 @@ So there is a need to change the approach.
 
 ** Code smell: Multiple lets
 
-The issue here are those multiple lets.
+The issue here are those multiple lets. If I look at them, I don't see functional code. Where I see is imperative code disguised inside Clojure syntax.
 
 ** The insight: Functional Composition
 
+Again, this insight comes from the time I was looking into Haskell, again. Because on any Haskell manual f(g(x)) is going to be present. Of course it does make sense,
+
 ** Changing the approach
 
+* Next Steps
+So what are the next steps that I want to take to improve my functional code? As I mentioned, I think one of the issues that I have is that I have not yet internalized functional style enough.
 
+The first setp is reading the book "Functional Patterns in Scala and Clojure". It has been on my reading list since McCarthy created Lisp. I think is the time to 
 
-
-* Conclusion
+The second step is being more methodical on my exercises. In OOP we can use object calisthenics to force ourselves into the most narrow path to improve our ability to create OOP code. Maybe, there is something similar on functional programming (or maybe Haskell is the calisthenics of functional).
    
