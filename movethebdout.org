@@ -83,6 +83,18 @@ Again, this insight comes from the time I was looking into Haskell, again. Becau
 
 ** Changing the approach
 
+Can I convert the code to something that can do
+
+#+BEGIN_SRC clojure
+
+(-> (someNewFunctionA)
+    (someNewFunctionB)
+    (someNewFunctionC)
+    (someNewFunctionD)
+    (caller))
+
+#+END_SRC
+
 * Next Steps
 So what are the next steps that I want to take to improve my functional code? As I mentioned, I think one of the issues that I have is that I have not yet internalized functional style enough.
 
