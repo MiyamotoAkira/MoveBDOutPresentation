@@ -1,0 +1,92 @@
+* Move the DB Out
+
+or Internalized Functional Programming
+
+* 
+
+* How it was done 
+
+#+BEGIN_SRC clojure
+(defn somefunctionC [] 
+  (someDBfunctionAccess))
+
+(defn somefunctionB []
+  (somecalculation (somefunctionC)))
+
+(defn somefunctionA []
+  (somecalculation (somefunctionB)))
+
+#+END_SRC
+
+* 
+
+* Code smell?
+
+#+BEGIN_SRC clojure
+
+(deftest some-test 
+  (with-redefs [functionA (fn [] (dosomething))
+                functionB (fn [] true)]
+    #test_code))
+
+#+END_SRC
+
+* 
+
+* Changing the approach
+
+#+BEGIN_SRC clojure
+
+(defn somefunctionC [] 
+  (someDBfunctionAccess))
+
+(let [x (somefunctionC)]
+
+  (defn somefunctionB [x]
+    (somecalculation x))
+
+  (defn somefunctionA [x]
+    (somecalculation (somefunctionB x))))
+
+#+END_SRC
+
+
+* 
+
+* How it was done 2
+
+#+BEGIN_SRC clojure
+
+(let [a (someFunctionA)
+      b (someFunctionB)
+      c (someFunctionC)
+      d (someFunctionD)]
+
+ (caller a b c d))
+
+#+END_SRC
+
+
+* 
+
+* Code smell?
+
+Lets upon Lets
+
+* 
+
+* Changing the approach
+
+#+BEGIN_SRC clojure
+
+(-> (someNewFunctionA)
+    (someNewFunctionB)
+    (someNewFunctionC)
+    (someNewFunctionD)
+    (caller))
+
+#+END_SRC
+
+* 
+
+* Next Steps?
