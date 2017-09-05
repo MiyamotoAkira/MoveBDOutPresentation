@@ -2,10 +2,7 @@
 
 or Internalized Functional Programming
 
-* 
-
 * How it was done 
-
 #+BEGIN_SRC clojure
 (defn somefunctionC [] 
   (someDBfunctionAccess))
@@ -18,8 +15,6 @@ or Internalized Functional Programming
 
 #+END_SRC
 
-* 
-
 * Code smell?
 
 #+BEGIN_SRC clojure
@@ -31,12 +26,9 @@ or Internalized Functional Programming
 
 #+END_SRC
 
-* 
-
 * Changing the approach
 
 #+BEGIN_SRC clojure
-
 (defn somefunctionC [] 
   (someDBfunctionAccess))
 
@@ -50,30 +42,23 @@ or Internalized Functional Programming
 
 #+END_SRC
 
-
-* 
-
 * How it was done 2
-
 #+BEGIN_SRC clojure
 
 (let [a (someFunctionA)
-      b (someFunctionB)
-      c (someFunctionC)
-      d (someFunctionD)]
+      b (someFunctionB)]
 
- (caller a b c d))
+  (somecall a)
+  (let [c (someFunctionC)
+        d (someFunctionD)]
+
+  (caller b c d)))
 
 #+END_SRC
-
-
-* 
 
 * Code smell?
 
 Lets upon Lets
-
-* 
 
 * Changing the approach
 
@@ -87,6 +72,6 @@ Lets upon Lets
 
 #+END_SRC
 
-* 
-
 * Next Steps?
+
+Internalizing

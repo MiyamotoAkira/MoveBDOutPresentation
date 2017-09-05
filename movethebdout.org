@@ -65,11 +65,13 @@ So there is a need to change the approach.
 #+BEGIN_SRC clojure
 
 (let [a (someFunctionA)
-      b (someFunctionB)
-      c (someFunctionC)
-      d (someFunctionD)]
+      b (someFunctionB)]
 
- (caller a b c d))
+  (somecall a)
+  (let [c (someFunctionC)
+        d (someFunctionD)]
+
+  (caller b c d)))
 
 #+END_SRC
 
