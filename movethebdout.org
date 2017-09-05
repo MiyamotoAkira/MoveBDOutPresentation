@@ -10,6 +10,8 @@ Will show two specific examples of what I am thinking was the wrong approach.
 
 ** How it was done
 
+----Convert to actual named versions
+
 #+BEGIN_SRC clojure
 (defn somefunctionC [] 
   (someDBfunctionAccess))
@@ -24,10 +26,12 @@ Will show two specific examples of what I am thinking was the wrong approach.
 
 ** Code smell: with-redefs
 
+---- convert to actual named versions that match the previous
+
 #+BEGIN_SRC clojure
 
 (deftest some-test 
-  (with-redefs [functionA (fn [x] (dosomething b))
+  (with-redefs [functionA (fn [x] (dosomethingq b))
                 functionB (fn [y] true)]
     #test_code))
 
@@ -42,6 +46,8 @@ One of the languages that I looked (very briefly, I must say) was Haskell. Now y
 ** Changing the approach
 
 So there is a need to change the approach.
+
+---- Convert to named examples
 
 #+BEGIN_SRC clojure
 
@@ -61,6 +67,10 @@ So there is a need to change the approach.
 * Lets usage and abuse
 
 ** How it was done
+
+---- Convert to actual named examples
+---- Can this be linked to C# Task<T>?
+---- What about binding?
 
 #+BEGIN_SRC clojure
 
@@ -104,3 +114,4 @@ The first setp is reading the book "Functional Patterns in Scala and Clojure". I
 
 The second step is being more methodical on my exercises. In OOP we can use object calisthenics to force ourselves into the most narrow path to improve our ability to create OOP code. Maybe, there is something similar on functional programming (or maybe Haskell is the calisthenics of functional).
    
+-----Functional calisthenics website
