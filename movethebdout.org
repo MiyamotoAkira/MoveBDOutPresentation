@@ -27,8 +27,8 @@ Will show two specific examples of what I am thinking was the wrong approach.
 #+BEGIN_SRC clojure
 
 (deftest some-test 
-  (with-redefs [functionA (fn [] (dosomething))
-                functionB (fn [] true)]
+  (with-redefs [functionA (fn [x] (dosomething b))
+                functionB (fn [y] true)]
     #test_code))
 
 #+END_SRC
@@ -81,7 +81,7 @@ The issue here are those multiple lets. If I look at them, I don't see functiona
 
 ** The insight: Functional Composition
 
-Again, this insight comes from the time I was looking into Haskell, again. Because on any Haskell manual f(g(x)) is going to be present. Of course it does make sense,
+Again, this insight comes from the time I was looking into Haskell, again. Because on any Haskell manual f(g(x)) is going to be present. Of course it does make sense, you avoid variables, which is what I have in there.
 
 ** Changing the approach
 
@@ -100,7 +100,7 @@ Can I convert the code to something that can do
 * Next Steps
 So what are the next steps that I want to take to improve my functional code? As I mentioned, I think one of the issues that I have is that I have not yet internalized functional style enough.
 
-The first setp is reading the book "Functional Patterns in Scala and Clojure". It has been on my reading list since McCarthy created Lisp. I think is the time to 
+The first setp is reading the book "Functional Patterns in Scala and Clojure". It has been on my reading list since McCarthy created Lisp. I think is the time to finish it. 
 
 The second step is being more methodical on my exercises. In OOP we can use object calisthenics to force ourselves into the most narrow path to improve our ability to create OOP code. Maybe, there is something similar on functional programming (or maybe Haskell is the calisthenics of functional).
    

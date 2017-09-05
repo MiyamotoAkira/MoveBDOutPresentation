@@ -1,6 +1,6 @@
 * Move the DB Out
 
-or Internalized Functional Programming
+Production code thoughts.
 
 * How it was done 
 #+BEGIN_SRC clojure
@@ -16,18 +16,15 @@ or Internalized Functional Programming
 #+END_SRC
 
 * Code smell?
-
 #+BEGIN_SRC clojure
-
 (deftest some-test 
-  (with-redefs [functionA (fn [] (dosomething))
-                functionB (fn [] true)]
+  (with-redefs [functionA (fn [x] (dosomething x))
+                functionB (fn [y] true)]
     #test_code))
 
 #+END_SRC
 
 * Changing the approach
-
 #+BEGIN_SRC clojure
 (defn somefunctionC [] 
   (someDBfunctionAccess))
@@ -44,7 +41,6 @@ or Internalized Functional Programming
 
 * How it was done 2
 #+BEGIN_SRC clojure
-
 (let [a (someFunctionA)
       b (someFunctionB)]
 
@@ -61,9 +57,7 @@ or Internalized Functional Programming
 Lets upon Lets
 
 * Changing the approach
-
 #+BEGIN_SRC clojure
-
 (-> (someNewFunctionA)
     (someNewFunctionB)
     (someNewFunctionC)
