@@ -6,34 +6,33 @@ I have had now the pleasure of experiencing working on production code on Clojur
 
 Will show two specific examples of what I am thinking was the wrong approach.
 
+
 * BD access
 
 ** How it was done
 
-----Convert to actual named versions
-
 #+BEGIN_SRC clojure
-(defn somefunctionC [] 
-  (someDBfunctionAccess))
+(defn retrieve_car [car_id] 
+  (retrieve_car_from_DB car_id))
 
-(defn somefunctionB []
-  (somecalculation (somefunctionC)))
+(defn calculate_force [car_id]
+  (let [car (retrieve_car car_id)]
+    (* (:top_speed car) (:total_mass car))))
 
-(defn somefunctionA []
-  (somecalculation (somefunctionB)))
+(defn estimate_damage [car_id cost_per_newton]
+  (* (calculate_force car_id cost_per_newton))
 
 #+END_SRC
 
 ** Code smell: with-redefs
 
----- convert to actual named versions that match the previous
-
 #+BEGIN_SRC clojure
 
 (deftest some-test 
-  (with-redefs [functionA (fn [x] (dosomethingq b))
-                functionB (fn [y] true)]
-    #test_code))
+  (with-redefs [retrieve_car_from_db (fn [x] {:id "1" :top_speed "6" :total_mass "5"})]
+    #test code
+    (estimate_damage "FORDY" 50)
+    #more test code))
 
 #+END_SRC
 
@@ -47,41 +46,38 @@ One of the languages that I looked (very briefly, I must say) was Haskell. Now y
 
 So there is a need to change the approach.
 
----- Convert to named examples
-
 #+BEGIN_SRC clojure
 
-(defn somefunctionC [] 
-  (someDBfunctionAccess))
+(defn retrieve_car [car_id] 
+  (retrieve_car_from_db car_id))
 
-(let [x (somefunctionC)]
+(let [car (retrieve_car )]
 
-  (defn somefunctionB [x]
-    (somecalculation x))
+  (defn calculate_force [car]
+    (* (:top_speed car) (:total_mass car)))
 
-  (defn somefunctionA [x]
-    (somecalculation (somefunctionB x))))
+  (defn estimate_damage [car]
+    (* (calculate_force car) cost_per_newton)))
 
 #+END_SRC
+
 
 * Lets usage and abuse
 
 ** How it was done
 
----- Convert to actual named examples
 ---- Can this be linked to C# Task<T>?
 ---- What about binding?
 
 #+BEGIN_SRC clojure
 
-(let [a (someFunctionA)
-      b (someFunctionB)]
+(let [user (create-user "pepe")
+      role (get-role "user")]
 
-  (somecall a)
-  (let [c (someFunctionC)
-        d (someFunctionD)]
-
-  (caller b c d)))
+  (assign-role-to-user user role)
+  (let [new-user (get-user "pepe")
+        session (get-session "session1")]
+    (get-user-in-session new-user session)))
 
 #+END_SRC
 
@@ -95,17 +91,14 @@ Again, this insight comes from the time I was looking into Haskell, again. Becau
 
 ** Changing the approach
 
-Can I convert the code to something that can do
-
 #+BEGIN_SRC clojure
 
-(-> (someNewFunctionA)
-    (someNewFunctionB)
-    (someNewFunctionC)
-    (someNewFunctionD)
-    (caller))
+(-> (create-user "pepe")
+    (assign-role-to-user (get-role "user"))
+    (get-user-in-session (get-session "session1")))
 
 #+END_SRC
+
 
 * Next Steps
 So what are the next steps that I want to take to improve my functional code? As I mentioned, I think one of the issues that I have is that I have not yet internalized functional style enough.

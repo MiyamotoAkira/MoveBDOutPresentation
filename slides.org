@@ -4,51 +4,52 @@ Production code thoughts.
 
 * How it was done 
 #+BEGIN_SRC clojure
-(defn somefunctionC [] 
-  (someDBfunctionAccess))
+(defn retrieve_car [car_id] 
+  (retrieve_car_from_DB car_id))
 
-(defn somefunctionB []
-  (othercalculation (somefunctionC)))
+(defn calculate_force [car_id]
+  (let [car (retrieve_car car_id)]
+    (* (:top_speed car) (:total_mass car))))
 
-(defn somefunctionA []
-  (somecalculation (somefunctionB)))
+(defn estimate_damage [car_id cost_per_newton]
+  (* (calculate_force car_id cost_per_newton))
 
 #+END_SRC
 
 * Code smell?
 #+BEGIN_SRC clojure
 (deftest some-test 
-  (with-redefs [functionA (fn [x] (dosomething x))
-                functionB (fn [y] true)]
-    #test_code))
+  (with-redefs [retrieve_car_from_db (fn [x] {:id "1" :top_speed "6" :total_mass "5"})]
+    #test code
+    (estimate_damage "FORDY" 50)
+    #more test code))
 
 #+END_SRC
 
 * Changing the approach
 #+BEGIN_SRC clojure
-(defn somefunctionC [] 
-  (someDBfunctionAccess))
+(defn retrieve_car [car_id] 
+  (retrieve_car_from_db car_id))
 
-(let [x (somefunctionC)]
+(let [car (retrieve_car )]
 
-  (defn somefunctionB [x]
-    (somecalculation x))
+  (defn calculate_force [car]
+    (* (:top_speed car) (:total_mass car)))
 
-  (defn somefunctionA [x]
-    (somecalculation (somefunctionB x))))
+  (defn estimate_damage [car]
+    (* (calculate_force car) cost_per_newton)))
 
 #+END_SRC
 
 * How it was done 2
 #+BEGIN_SRC clojure
-(let [a (someFunctionA)
-      b (someFunctionB)]
+(let [user (create-user "pepe")
+      role (get-role "user")]
 
-  (somecall a)
-  (let [c (someFunctionC)
-        d (someFunctionD)]
-
-  (caller b c d)))
+  (assign-role-to-user user role)
+  (let [new-user (get-user "pepe")
+        session (get-session "session1")]
+    (get-user-in-session new-user session)))
 
 #+END_SRC
 
@@ -58,11 +59,9 @@ Lets upon Lets
 
 * Changing the approach
 #+BEGIN_SRC clojure
-(-> (someNewFunctionA x)
-    (someNewFunctionB)
-    (someNewFunctionC)
-    (someNewFunctionD)
-    (caller))
+(-> (create-user "pepe")
+    (assign-role-to-user (get-role "user"))
+    (get-user-in-session (get-session "session1")))
 
 #+END_SRC
 
