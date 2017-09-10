@@ -105,6 +105,19 @@ So what are the next steps that I want to take to improve my functional code? As
 
 The first setp is reading the book "Functional Patterns in Scala and Clojure". It has been on my reading list since McCarthy created Lisp. I think is the time to finish it. 
 
-The second step is being more methodical on my exercises. In OOP we can use object calisthenics to force ourselves into the most narrow path to improve our ability to create OOP code. Maybe, there is something similar on functional programming (or maybe Haskell is the calisthenics of functional).
+The second step is being more methodical on my exercises. In OOP we can use object calisthenics to force ourselves into the most narrow path to improve our ability to create OOP code. I have recently learned that during SOCRATES 2015, a few people did talk about exactly this, and they came with this:
+
+They are limitations, maybe your language imposes those limitations already, maybe not, but is about.
    
------Functional calisthenics website
+http://blog.ninjaferret.co.uk/2015/06/05/Introducing-Functional-Calisthenics.html
+    Side effects can only occur at the top level
+    No mutable state
+    Expressions not statements
+    Functions should have 1 argument
+    No explicit recursion
+    Maximum type-level abstraction
+    Always use infinite sequences
+    No "if"
+    Name everything
+    Use intermediates
+    Don't abbreviate
