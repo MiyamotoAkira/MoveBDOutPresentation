@@ -1,6 +1,13 @@
 * The Setup
 
-Previous experience with functional languages have been always really small pieces of code. I have used a few (more importantly Clojure, F# and Elixir).
+I have been mostly an Object Oriented Programmer since I left university. I think I am good at it. But ...
+
+My experience with functional languages have been always really small pieces of code. I have used a few 
+
+F# - Because I was on .Net
+Clojure - Because Lisp was sent by the gods
+Elixir and Erlang - Because the BEAM is awesome
+Haskell - Because of the purity
 
 I have had now the pleasure of experiencing working on production code on Clojure. As part of that work, a few things have occurred to me about how I was coding, the application. The most important is the realization that once I was developing the production system I was going back to my try and tested way of doing procedural or OO programming.
 
@@ -103,9 +110,9 @@ Again, this insight comes from the time I was looking into Haskell, again. Becau
 * Next Steps
 So what are the next steps that I want to take to improve my functional code? As I mentioned, I think one of the issues that I have is that I have not yet internalized functional style enough.
 
-The first setp is reading the book "Functional Patterns in Scala and Clojure". It has been on my reading list since McCarthy created Lisp. I think is the time to finish it. 
+One is reading the book "Functional Patterns in Scala and Clojure". It has been on my reading list since McCarthy created Lisp. I think is the time to finish it. 
 
-The second step is being more methodical on my exercises. In OOP we can use object calisthenics to force ourselves into the most narrow path to improve our ability to create OOP code. I have recently learned that during SOCRATES 2015, a few people did talk about exactly this, and they came with this:
+Another step is being more methodical on my exercises. In OOP we can use object calisthenics to force ourselves into the most narrow path to improve our ability to create OOP code. I have recently learned that during SOCRATES 2015, a few people did talk about exactly this, and they came with this:
 
 They are limitations, maybe your language imposes those limitations already, maybe not, but is about.
    
@@ -121,3 +128,6 @@ http://blog.ninjaferret.co.uk/2015/06/05/Introducing-Functional-Calisthenics.htm
     Name everything
     Use intermediates
     Don't abbreviate
+
+
+If someone has its own exercises to do proper functional programming, I will be delighted to learn about them
