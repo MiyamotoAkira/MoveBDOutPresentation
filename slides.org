@@ -89,9 +89,12 @@ http://blog.ninjaferret.co.uk/2015/06/05/Introducing-Functional-Calisthenics.htm
 
 @yefoakira
 
+
 http://twoormore.eu
 
 
+[[./codurance.png]]
 @codurance
+
 
 http://codurance.com

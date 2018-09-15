@@ -1,0 +1,145 @@
+% Created 2017-09-14 Thu 21:36
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Jorge}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={Jorge},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.2.1 (Org mode 9.1)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\section{Move the DB Out}
+\label{sec:orgfa498c8}
+
+Production code thoughts.
+
+\section{How it was done}
+\label{sec:org4d5e4fb}
+\begin{verbatim}
+(defn retrieve_car [car_id] 
+  (retrieve_car_from_DB car_id))
+
+(defn calculate_force [car_id]
+  (let [car (retrieve_car car_id)]
+    (* (:top_speed car) (:total_mass car))))
+
+(defn estimate_damage [car_id cost_per_newton]
+  (* (calculate_force car_id cost_per_newton))
+
+\end{verbatim}
+
+\section{Code smell?}
+\label{sec:org930f1cb}
+\begin{verbatim}
+(deftest some-test 
+  (with-redefs [retrieve_car_from_db (fn [x] {:id "1" :top_speed "6" :total_mass "5"})]
+    #test code
+    (estimate_damage "FORDY" 50)
+    #more test code))
+
+\end{verbatim}
+
+\section{Changing the approach}
+\label{sec:orgc5efa6e}
+\begin{verbatim}
+(defn retrieve_car [car_id] 
+  (retrieve_car_from_db car_id))
+
+(let [car (retrieve_car )]
+
+  (defn calculate_force [car]
+    (* (:top_speed car) (:total_mass car)))
+
+  (defn estimate_damage [car]
+    (* (calculate_force car) cost_per_newton)))
+
+\end{verbatim}
+
+\section{How it was done 2}
+\label{sec:orga004f5b}
+\begin{verbatim}
+(let [user (create-user "pepe")
+      role (get-role "user")]
+
+  (assign-role-to-user user role)
+  (let [new-user (get-user "pepe")
+        session (get-session "session1")]
+    (get-user-in-session new-user session)))
+
+\end{verbatim}
+
+\section{Code smell?}
+\label{sec:org2b128b6}
+
+Lets upon Lets
+
+\section{Changing the approach}
+\label{sec:org515d900}
+\begin{verbatim}
+(-> (create-user "pepe")
+    (assign-role-to-user (get-role "user"))
+    (get-user-in-session (get-session "session1")))
+
+\end{verbatim}
+
+\section{Next Steps?}
+\label{sec:org75d1b0b}
+
+Internalizing
+
+\section{Functional Calisthenics}
+\label{sec:orgc40594f}
+
+\begin{itemize}
+\item Side effects can only occur at the top level
+\item No mutable state
+\item Expressions not statements
+\item Functions should have 1 argument
+\item No explicit recursion
+\item Maximum type-level abstraction
+\item Always use infinite sequences
+\item No "if"
+\item Name everything
+\item Use intermediates
+\item Don't abbreviate
+\end{itemize}
+
+\url{http://blog.ninjaferret.co.uk/2015/06/05/Introducing-Functional-Calisthenics.html}
+
+\section{That's All Folks}
+\label{sec:org60b3ee1}
+
+@yefoakira
+
+
+\url{http://twoormore.eu}
+
+
+\begin{center}
+\includegraphics[width=.9\linewidth]{./codurance.png}
+\end{center}
+@codurance
+
+
+\url{http://codurance.com}
+\end{document}
